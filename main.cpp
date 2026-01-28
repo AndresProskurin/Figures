@@ -2,12 +2,22 @@
 
 class Shape {
 
-    protected:
+    private:
         int sideCnt{0};
+        std::string name;
+
     public:
-        Shape() {}
-        int sideCount() {
+        Shape(int sideCnt = 0, std::string name = "Фигура") : sideCnt(sideCnt), name(name) {}
+        int get_sideCount() const{
             return sideCnt;
+        }
+
+        virtual std::string get_name() const {
+            return name;
+        }
+
+        virtual void print_info() const {
+            std::cout << get_name() << ": " << get_sideCount() << std::endl;
         }
     };
 
@@ -15,17 +25,13 @@ class Shape {
 class Triangle : public Shape {
 
     public:
-        Triangle() : Shape() {
-            sideCnt = 3;
-        }
+        Triangle() : Shape(3, "Треугольник") {}
 };
 
 class Rectangle : public Shape {
 
     public:
-        Rectangle() : Shape() {
-            sideCnt = 4;
-        }
+        Rectangle() : Shape(4, "Четырёхугольник") {}
 };
 
 int main() {
@@ -35,9 +41,9 @@ int main() {
     Rectangle rectangle;
 
     std::cout << "Количество сторон:" << std::endl;
-    std::cout << "Фигура: " << shape.sideCount() << std::endl;
-    std::cout << "Треугольник: " << triangle.sideCount() << std::endl;
-    std::cout << "Четырёхугольник: " << rectangle.sideCount() << std::endl;
+    shape.print_info();
+    triangle.print_info();
+    rectangle.print_info();
 
     return 0;
 }
